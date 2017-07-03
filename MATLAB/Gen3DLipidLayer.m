@@ -40,6 +40,6 @@ hueimage(hueimage<0.20 & hueimage>0.10)=0.625;
 
 order = 3;
 framelen = 11;
-sgf = sgolayfilt(hueimage,order,framelen);
+sgf = sgolayfilt(hueimage,order,framelen);%applied Savitzky-Golay smoothening filter
 figure; mesh(sgf) %project the mesh giving the irregular thickness of lipid layer
-colormap('bone')
+colormap('hot')
