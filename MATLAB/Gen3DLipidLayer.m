@@ -38,13 +38,23 @@ hueimage(hueimage<0.51 & hueimage>0.30)=0.29;
 %that corresponds to 112.5nm
 hueimage(hueimage<0.20 & hueimage>0.10)=0.625; 
 
-order = 3;
+%applied Savitzky-Golay smoothening filter
+order = 7;
 framelen = 11;
-sgf = sgolayfilt(hueimage,order,framelen);%applied Savitzky-Golay smoothening filter
+sgf = sgolayfilt(hueimage,order,framelen);
 
-figure; mesh(sgf) %project the mesh giving the irregular thickness of lipid layer
-colormap('hot')%yellow gives highest thickness then orange and least by brown
+%project the mesh giving the irregular thickness of lipid layer
+[X,Y]= meshgrid(1:205,1:154);
+Z=sgf;
+figure; surf(X,Y,Z)
+
 xlabel('y axis of resized image')
 ylabel('x axis of resized image')
 zlabel('thickness of lipid layer mapped to 0 to 1 range')
+%colormap('hot')%yellow gives highest thickness then orange and least by brown
+view([150.5 66]);
+grid('on');
+hold('all');
+screenSize = get(0,'Screensize');
+set(gcf, 'Position', screenSize); % Maximize figure
 
